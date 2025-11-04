@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  server:
+    build: ./server
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./server/data.sqlite:/app/data.sqlite
+    environment:
+      - PORT=4000
+    restart: unless-stopped
+
+  client:
+    build: ./client
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+    restart: unless-stopped
